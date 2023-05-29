@@ -10,8 +10,9 @@ const header = require("gulp-header");
 const merge = require("merge-stream");
 const plumber = require("gulp-plumber");
 const rename = require("gulp-rename");
-const sass = require("gulp-sass");
+// const sass = require("gulp-sass");
 const uglify = require("gulp-uglify");
+const sass = require('gulp-sass')(require('sass'));
 
 // Load package.json for banner
 const pkg = require('./package.json');
@@ -134,6 +135,7 @@ function watchFiles() {
 const vendor = gulp.series(clean, modules);
 const build = gulp.series(vendor, gulp.parallel(css, js));
 const watch = gulp.series(build, gulp.parallel(watchFiles, browserSync));
+
 
 // Export tasks
 exports.css = css;

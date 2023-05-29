@@ -7,11 +7,11 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'doughnut',
   data: {
-    labels: ["Direct", "Referral", "Social"],
+    labels: [],
     datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+      data: [],
+      backgroundColor: [],
+      hover: [],
       hoverBorderColor: "rgba(234, 236, 244, 1)",
     }],
   },
@@ -23,8 +23,8 @@ var myPieChart = new Chart(ctx, {
       borderColor: '#dddfeb',
       borderWidth: 1,
       xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
+      yPadding:15,
+      displayColors: true,
       caretPadding: 10,
     },
     legend: {
@@ -33,3 +33,31 @@ var myPieChart = new Chart(ctx, {
     cutoutPercentage: 80,
   },
 });
+
+async function fetchData() {
+  const response = await fetch('http://localhost:3000/pie-data');
+  const data = await response.json();
+
+  // Manually generate background colors
+  const backgroundColors = [
+    '#4e73df',
+    '#1cc88a',
+    '#36b9cc',
+    '#f6c23e',
+    '#e74a3b',
+    '#858796',
+    '#a5a5a5',
+    '#f8f9fc',
+    '#5a5c69',
+    '#e74a3b'
+  ];
+
+  // Update chart data
+  myPieChart.data.labels = data.labels;
+  myPieChart.data.datasets[0].data = data.values;
+  myPieChart.data.datasets[0].backgroundColor = backgroundColors;
+  myPieChart.data.datasets[0].hoverBackgroundColor = backgroundColors;
+  myPieChart.update();
+}
+
+fetchData();
