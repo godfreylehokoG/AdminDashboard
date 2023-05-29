@@ -687,34 +687,7 @@
   
     fetchData();
   </script>
-<script>
-    const db = mysql.createConnection({
-      host: 'internteam2chatbot.ctgb19tevqci.eu-west-1.rds.amazonaws.com',
-      user: 'admin',
-      password: 'mypassword',
-      database: 'internteam2chatbot'
-    });
-    
-    db.connect((err) => {
-      if (err) throw err;
-    
-      const query = `
-        SELECT COUNT(*) as total_reports
-        FROM reports
-        WHERE date = CURRENT_DATE();
-      `;
-    
-      db.query(query, (err, results) => {
-        if (err) throw err;
-    
-        const totalReports = results[0].total_reports;
-    
-        // Update the card with the new data
-        const reportsCard = document.querySelector('#reports-card');
-        reportsCard.querySelector('.h5').innerText = totalReports;
-      });
-    });
-    </script>
+
     
 
     <!-- Bootstrap core JavaScript-->
